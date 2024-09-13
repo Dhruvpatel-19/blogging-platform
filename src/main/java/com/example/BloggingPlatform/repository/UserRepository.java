@@ -9,5 +9,5 @@ import com.example.BloggingPlatform.collections.User;
 public interface UserRepository extends MongoRepository<User, String>{
 
 	Optional<User> findByUsername(String username);
-
+	
 }

@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private JwtAuthenticationEntryPoint entryPoint;
-
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// TODO Auto-generated method stub
@@ -42,14 +42,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.cors()
 			.disable()
 			.authorizeRequests()
+//			.anyRequest().permitAll()
+			.antMatchers("/css/**", "/js/**", "/images/**").permitAll() //to allow access to static resources
 			.antMatchers("/signUp").permitAll()
 			.antMatchers("/signIn").permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//			.and()
+//			.sessionManagement()
+//            .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) // Ensure session is managed properly
 			.and()
 			.exceptionHandling().authenticationEntryPoint(entryPoint);
-		
+					
 		http
 			.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 	}

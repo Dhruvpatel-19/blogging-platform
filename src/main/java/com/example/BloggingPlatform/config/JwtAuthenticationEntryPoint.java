@@ -18,7 +18,11 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 	  public void commence(HttpServletRequest request, HttpServletResponse response, 
 			 AuthenticationException authException) throws IOException, ServletException { 
 		  // TODO Auto-generated method stub
-		  response.sendError(401, "Unauthorized");
+		  //response.sendError(401, "Unauthorized");
+		  
+		  //to redirect user to login page with an error message
+	      String redirectUrl = "/signIn?signInErrorMsg=signIn_first";
+	      response.sendRedirect(redirectUrl);
 	 }
 	 
 }
