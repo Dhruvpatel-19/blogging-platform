@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Comments</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <h1>Comments for Blog ID: [[${blogId}]]</h1>
+    <a th:href="@{/comments/add/{blogId}(blogId=${blogId})}">Add New Comment</a>
+    <ul>
+        <li th:each="comment : ${comments}">
+            <p th:text="${comment.commentText}"></p>
+            <p>By: <span th:text="${comment.commenterName}"></span></p>
+            <a th:href="@{/comments/edit/{blogId}/{commentId}(blogId=${blogId}, commentId=${comment.id})}">Edit</a>
+            <a th:href="@{/comments/delete/{blogId}/{commentId}(blogId=${blogId}, commentId=${comment.id})}">Delete</a>
+        </li>
+    </ul>
+</body>
+</html>

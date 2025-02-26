@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog Details</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <h1 th:text="${blogPost.title}"></h1>
+    <p>Author: <span th:text="${blogPost.author.username}"></span></p>
+    <p>Date: <span th:text="${blogPost.creationDate}"></span></p>
+    <p th:text="${blogPost.content}"></p>
+
+    <h2>Comments</h2>
+    <ul>
+        <li th:each="comment : ${comments}">
+            <p><strong th:text="${comment.commenterName}"></strong> said on <span th:text="${comment.creationDate}"></span>:</p>
+            <p th:text="${comment.commentText}"></p>
+            <a th:href="@{/updateComment/{id}(id=${comment.id})}">Update</a>
+            <form th:action="@{/deleteComment/{id}(id=${comment.id})}" method="post" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    </ul>
+
+    <h2>Add a New Comment</h2>
+    <form th:action="@{/addComment/{blogId}(blogId=${blogPost.id})}" method="post">
+        <textarea name="commentText" placeholder="Write your comment here..." required></textarea>
+        <button type="submit">Add Comment</button>
+    </form>
+</body>
+</html>

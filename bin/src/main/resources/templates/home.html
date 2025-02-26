@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog Posts</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <h1>Blog Posts</h1>
+
+    <!-- Message Display -->
+    <div th:if="${msg}" class="success-message">
+        <p th:text="${msg}"></p>
+    </div>
+
+    <!-- Error Display from Controller Advice-->
+    <div th:if="${errorMsg}" class="error-message">
+        <p th:text="${errorMsg}"></p>
+    </div>
+
+    <!-- Add Blog Button -->
+    <a th:href="@{/addBlog}">
+        <button type="button">Add New Blog</button>
+    </a>
+
+    <a th:href="@{/signOut}">
+        <button type="button">Sign Out</button>
+    </a>
+
+    <ul>
+        <li th:each="blogPost : ${blogPosts}">
+            <a th:href="@{/getBlog/{id}(id=${blogPost.id})}">
+                <h2 th:text="${blogPost.title}"></h2>
+            </a>
+            <p>Author: <span th:text="${blogPost.author.username}"></span></p>
+            <p>Date: <span th:text="${blogPost.creationDate}"></span></p>
+            <p th:text="${blogPost.content}"></p>
+            <a th:href="@{/updateBlog/{id}(id=${blogPost.id})}">Update</a>
+            <form th:action="@{/deleteBlog/{id}(id=${blogPost.id})}" method="post" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    </ul>
+</body>
+</html>

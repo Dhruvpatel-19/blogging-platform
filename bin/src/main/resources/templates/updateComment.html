@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Comment</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <h1>Update Comment</h1>
+
+    <form th:action="@{/updateComment}" th:object="${comment}" method="post" class="form-container">
+        <!-- Hidden fields to store comment ID and associated blog ID -->
+        <input type="hidden" th:field="*{id}" />
+        <input type="hidden" th:field="*{blogPost.id}" />
+
+        <div>
+            <label for="commenterName">Name:</label>
+            <input type="text" id="commenterName" th:field="*{commenterName}" required>
+        </div>
+        <div>
+            <label for="commentText">Comment:</label>
+            <textarea id="commentText" th:field="*{commentText}" rows="4" required></textarea>
+        </div>
+        <div>
+            <button type="submit">Update Comment</button>
+        </div>
+    </form>
+
+    <!-- Back to Blog button -->
+    <a th:href="@{/getBlog/{id}(id=${comment.blogPost.id})}">
+        <button type="button">Back to Blog</button>
+    </a>
+</body>
+</html>

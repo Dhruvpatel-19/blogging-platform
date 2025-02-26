@@ -82,8 +82,10 @@ public class CommentService {
             
             String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
             
-            //check if the current user is the owner of the comment
-            if (currentUser.equals(commentFromRepo.getCommenterName())) {
+            String blogPostOwner = commentFromRepo.getBlogPost().getAuthor().getUsername();
+            
+            //check if the current user is the owner of the comment or owner of blogPost
+            if (currentUser.equals(commentFromRepo.getCommenterName()) || currentUser.equals(blogPostOwner)) {
             	String blogId = commentFromRepo.getBlogPost().getId();
                 commentRepository.delete(commentFromRepo);
                 return "redirect:/getBlog/" + blogId; 
